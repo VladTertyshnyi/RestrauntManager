@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Restaurant manager report.</title>
+    <style>
+    	table, th, td {
+    		border: 1px solid black;
+    		border-collapse: collapse;
+    	}
+    	th, td {
+    		padding: 5px;
+    		text-align: center;
+		}
+		.logo {
+			border-top: 1px solid #ffffff;
+			border-right: 1px solid #ffffff;
+		}
+		.about {
+			width: 40%;
+			font-style: italic;
+			text-align: left;
+		}
+		#top-header {
+			font-style: italic;
+		}
+		.header {
+			background: orange; 
+			font-style: italic;
+		}
+		.dishname {
+			text-align: left;
+		}
+		.total {
+			text-align: left;
+			background: orange;
+			background: orange; 
+		}
+		.empty_total {
+			border-left: 1px solid #ffffff;
+			border-right: 1px solid #ffffff;
+			border-bottom: 1px solid #ffffff;
+		}
+    </style>
+  </head>
+  <body>
+    <table style="width:100%">
+    	<tr>
+    	  <td class="about">Замовник: __замовник__</td>
+    	  <td rowspan="7" colspan="5" class="logo">
+    	  	<img src="images/logo_2.jpg" alt="Vino e Cucina restaurant">
+    	  </td>
+    	</tr>
+    	<tr>
+    	  <td class="about">Менеджер: __менеджер__</td>
+    	</tr>
+    	<tr>
+    	  <td class="about">Місце проведення: __місце__</td>
+    	</tr>
+    	<tr>
+    	  <td class="about">Дата: __дата__</td>
+    	</tr>
+    	<tr>
+    	  <td class="about">Вид заходу: __вид__</td>
+    	</tr>
+    	<tr>
+    	  <td class="about">Час: __час__</td>
+    	</tr>
+    	<tr>
+    	  <td id="about">Кількість персон: __кільк__</td>
+    	</tr>
+	    <tr>
+	      <td id="top-header" colspan="6">Ми щиро вдячні Вам, що обрали саме нас!</td>
+	    </tr>
+	    <tr>
+	      <td id="top-header" colspan="6">Керуючись Вашими пріорітетами та вподобаннями, ми підготували данну пропозицію.</td>
+	    </tr>
+	    <tr class="header">
+	      <th>Назва</th>
+	      <th>Вихід</th>
+	      <th>Кількість</th>
+	      <th>Коментар</th>
+	      <th>Ціна, грн</th>
+	      <th>Сума, грн</th>
+	    </tr>
+	    <tr class="header">
+	      <th width="40%">__type_name__</th>
+	      <th width="5%"></th>
+	      <th width="5%"></th>
+	      <th width="20%"></th>
+	      <th width="15%"></th>
+	      <th width="15%"></th>
+	    </tr>
+	    <tr>
+	      <td class="dishname">__name__</td>
+	      <td>__weight__</td>
+	      <td>__amount__</td>
+	      <td>__comment__</td>
+	      <td>__price__</td>
+	      <td>__total__</td>
+	    </tr>
+
+	    <tr>
+	    	<td>empty...</td>
+	    </tr>
+	    <tr>
+	    	<td>empty...</td>
+	    </tr>
+	    <tr>
+	    	<td>empty...</td>
+	    </tr>
+	    <tr>
+	    	<td>empty...</td>
+	    </tr>
+	    <tr>
+	      <td class="dishname">__name__</td>
+	      <td>__weight__</td>
+	      <td>__amount__</td>
+	      <td>__comment__</td>
+	      <td>__price__</td>
+	      <td>__total__</td>
+	    </tr>
+
+	    <tr class="total">
+	      <td>Загальна сума без обслуговування:</td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td>__сума__ грн.</td>
+	    </tr>
+	    <tr class="total">
+	      <td>Обслуговування 10%</td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td>__сума__ грн.</td>
+	    </tr>
+	    <tr class="total">
+	      <td>Загальна сума:</td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td></td>
+	      <td>__сума__ грн.</td>
+	    </tr>
+	    <tr>
+	      <td class="total">Середній рахунок на одну особу</td>
+	      <td class="empty_total"></td>
+	      <td class="empty_total"></td>
+	      <td class="empty_total"></td>
+	      <td style="border-bottom: 1px solid #ffffff;"></td>
+	      <td class="total">__сума__ грн.</td>
+	    </tr>
+
+    </table>
+  </body>
+</html>

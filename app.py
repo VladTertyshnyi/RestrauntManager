@@ -1,73 +1,70 @@
-#!/usr/bin/python3.5
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 
-# TOASK: should all widgets be resizable
-# TOASK: tooltips for [input] part
-# TOASK: Sizegrip(self).grid(column=999, row=999, sticky=S+E)
-# TOASK: saveWeb opportunity (if yes -> add more code).
-# TOASK: savePDF opportunity (if yes -> add more code)
-# TOASK: scrollbar at comment entry.
-# TOASK: shortcuts for main program (ctr+q == save+exit)
-# TOASK: windows-oriented, linux-oriented, or both?
-
-
-# Replace treeView with tktable
-# TODO: deletion from treeView
-# TODO: wrapping lines in treeView
-# TODO: validation if [name] exists in autoCompleteBox (here: in [dishes] list).
+# TOASK: make [new dish] Dialog bigger?
+# TODO: new, appropriate logo
+# TODO: add requirments.txt
+# TODO: do TODOs at newdishtml.py
+# TODO: today's date as default value in self.entries['date']
+# TODO: ctrl+C for the ['name'] entry
 
 import re
+import os
+import sys
 import tkinter
-import json
-from tkinter.ttk import Frame, Label, Button, Entry, Scrollbar, Treeview
-from tkinter import N, S, W, E, X, RIGHT, CENTER, VERTICAL, Text, END, messagebox, filedialog
-from AutoEntry import AutocompleteEntry
- 
-__license__ = 'MIT'
-__version__ = '0.1.2'
-__author__ = 'Maxim Gonchar'
-__email__ = 'maxgonchar9@gmail.com'
-__status__ = 'Development'
+from readjson import JsonReader
+from newdishdialog import NewDishDialog
+from newdishhtml import HTMLReport
+from tkinter.ttk import Frame, Label, Button, Entry, Scrollbar, Treeview, Style
+from tkinter import N, S, W, E, X, NO, RIGHT, CENTER, VERTICAL, END, messagebox, filedialog, PhotoImage
+from autoentry import AutocompleteEntry
 
-DEFAULT_MINSIZE_WIDTH = 800
+DEFAULT_MINSIZE_WIDTH = 900
 DEFAULT_MINSIZE_HEIGHT = 750
 
+json_path = os.getcwd() + '\\files\\dishes.json'
+logo_path = os.getcwd() + '\\images\\logo.png'
 
 class Program(Frame):
     """Class to represent a main window"""
     def __init__(self, parent):
+        # Some top-level settings.
         Frame.__init__(self, parent)
         self.content = Frame(self, padding=(5, 5, 5, 20))
-        # Some variables.
-        self.frames = []
-        self.entries = {}
-        # TODO: This list should be filled with data from json
-        self.dishes = []
         self.parent = parent
-        # Some top-level settings.
         self.parent.title('Restaurant manager')
         self.parent.minsize(DEFAULT_MINSIZE_WIDTH, DEFAULT_MINSIZE_HEIGHT)
         self.parent.protocol('WM_DELETE_WINDOW', self.onQuit)
+
+        # Some variables.
+        self.jsonReader = JsonReader(json_path)
+        self.frames = []
+        self.entries = {}
+        self.dishes = self.jsonReader.getDishesDict()
+        self.dishes_names = self.jsonReader.getDishesNames()
+        self.parent.iconphoto(
+            True,
+            PhotoImage(
+                file=os.path.join(
+                    sys.path[0], 
+                    logo_path
+                )
+            )
+        )
+
+        # Initialize all widgets.
         self.initWidgets()
-        self.getFromJson()
-    
-    def getFromJson(self):
-        file = open("menu_main.json", "r")
-        file_string = file.read()
-        json_string = json.loads(file_string)
-        for x in json_string:
-         self.dishes.append(x['name'])
-        print(self.dishes)
-        
+
     def initWidgets(self):
         """
-        Initialize widgets here.
+        Initialize all widgets in window here.
+        Entries are saved in [self.entries] list.
         ----------------------------------------------------------
-        4 frames are initialized and saved into self.frames[] here:
-        1) about_frm - Frame to contain all non-food entries.
-        2) newOrder_frm - Frame to contain entries for adding orders to the main table.
-        3) ordersTable_frm - Frame to contain table with list of added orders.
-        4) saveReport_frm - Frame to contain buttons, which save a report.
+        5 frames are initialized and saved into [self.frames] list here:
+        1) [About frame] - Frame to contain all non-food entries.
+        2) [Separator frame] - Frame to contain a simple separator.
+        3) [New order frame] - Frame to contain entries for adding orders to the main table.
+        4) [Orders table frame] - Frame to contain table with list of added orders.
+        5) [Save report frame] - Frame to contain buttons, which save a report.
         ----------------------------------------------------------
         """
         # Create 5 frames here.
@@ -88,90 +85,99 @@ class Program(Frame):
         self.frames[4].grid(column=0, row=4, sticky=S+E+W, padx=5, pady=3)
 
         # About frame widgets.
-        Label(self.frames[0], text='Client').grid(row=0, column=0, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Manager').grid(row=1, column=0, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Location').grid(row=2, column=0, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Date').grid(row=0, column=2, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Event type').grid(row=1, column=2, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Time').grid(row=2, column=2, sticky=E, padx=3, pady=5)
-        Label(self.frames[0], text='Amount of persons',
-              justify=RIGHT, wraplength=80).grid(row=1, column=4, sticky=E, padx=3, pady=5)
+        Label(self.frames[0], text='Заказчик').grid(row=0, column=0, sticky=E, pady=5)
+        Label(self.frames[0], text='Менеджер').grid(row=0, column=2, sticky=E, pady=5)
+        Label(self.frames[0], text='Вид мероприятия', justify=RIGHT, wraplength=90
+              ).grid(row=0, column=4, sticky=E, pady=5)
+        Label(self.frames[0], text='Дата').grid(row=1, column=0, sticky=E, pady=5)
+        Label(self.frames[0], text='Время').grid(row=1, column=2, sticky=E, pady=5)
+        Label(self.frames[0], text='Место проведения', justify=RIGHT, wraplength=90
+              ).grid(row=1, column=4, sticky=E, pady=5)
+        Label(self.frames[0], text='Количество персон', justify=RIGHT, wraplength=90
+              ).grid(row=1, column=6, sticky=E, pady=5)
 
         self.entries['client'] = Entry(self.frames[0])
         self.entries['manager'] = Entry(self.frames[0])
-        self.entries['location'] = Entry(self.frames[0])
+        self.entries['type'] = Entry(self.frames[0], width=10)
         self.entries['date'] = Entry(self.frames[0])
-        self.entries['eventtype'] = Entry(self.frames[0])
         self.entries['time'] = Entry(self.frames[0])
-        self.entries['personsamount'] = Entry(self.frames[0])
+        self.entries['location'] = Entry(self.frames[0], width=10)
+        self.entries['persons'] = Entry(self.frames[0], width=10)
 
-        self.entries['client'].grid(row=0, column=1, sticky=E+W, padx=7, pady=5)
-        self.entries['manager'].grid(row=1, column=1, sticky=E+W, padx=7, pady=5)
-        self.entries['location'].grid(row=2, column=1, sticky=E+W, padx=7, pady=5)
-        self.entries['date'].grid(row=0, column=3, sticky=E+W, padx=7, pady=5)
-        self.entries['eventtype'].grid(row=1, column=3, sticky=E+W, padx=7, pady=5)
-        self.entries['time'].grid(row=2, column=3, sticky=E+W, padx=7, pady=5)
-        self.entries['personsamount'].grid(row=1, column=5, sticky=E+W, padx=7, pady=5)
+        self.entries['client'].focus_set()
+
+        self.entries['client'].grid(row=0, column=1, sticky=E+W, padx=(3, 13), pady=5)
+        self.entries['manager'].grid(row=0, column=3, sticky=E+W, padx=(3, 13), pady=5)
+        self.entries['type'].grid(row=0, column=5, columnspan=3, sticky=E+W, padx=(3, 13), pady=5)
+        self.entries['date'].grid(row=1, column=1, sticky=E+W, padx=(3, 13), pady=5)
+        self.entries['time'].grid(row=1, column=3, sticky=E+W, padx=(3, 13), pady=5)
+        self.entries['location'].grid(row=1, column=5, sticky=E + W, padx=(3, 13), pady=5)
+        self.entries['persons'].grid(row=1, column=7, sticky=E+W, padx=(3, 13), pady=5)
 
         # Add a separator between [about] and [new order] frames
         sep1 = Frame(self.frames[1], height=2, borderwidth=1, relief='sunken')
         sep1.pack(fill=X, padx=1, pady=10)
 
         # New Order frame widgets.
-        # Empty labels for grid
-        Label(self.frames[2], width=7).grid(row=0, column=0, sticky=W+E)
-        Label(self.frames[2], width=15).grid(row=0, column=1, sticky=W+E)
-        Label(self.frames[2], width=15).grid(row=0, column=3, sticky=W+E+S)
-        Label(self.frames[2], width=15).grid(row=2, column=3, sticky=W+E+S)
-        Label(self.frames[2], text='Name', anchor=E).grid(row=1, column=0, sticky=N+S+W+E, padx=5)
-        Label(self.frames[2], text='Amount', anchor=E).grid(row=2, column=0, sticky=N+S+W+E, padx=5)
-        Label(self.frames[2], text='Comment', anchor=CENTER).grid(row=0, column=2, sticky=N+S+W+E)
+        Label(self.frames[2], text='Название', anchor=E).grid(row=0, column=0, sticky=E)
+        Label(self.frames[2], text='Комментарий', anchor=E).grid(row=1, column=0, sticky=E)
+        Label(self.frames[2], text='Количество', anchor=E).grid(row=2, column=0, sticky=E)
 
         self.entries['name'] = AutocompleteEntry(self.frames[2])
-        self.entries['name'].set_completion_list(self.dishes)
+        self.entries['comment'] = Entry(self.frames[2])
         self.entries['amount'] = Entry(self.frames[2])
-        self.comment_entry = Text(self.frames[2], height=8, width=45)
-        addOrder_btn = Button(self.frames[2], text='Add to the list')
+        addOrder_btn = Button(self.frames[2], text='Добавить')
 
-        self.entries['name'].grid(row=1, column=1, sticky=W+E, pady=3)
-        self.entries['amount'].grid(row=2, column=1, sticky=W+E, pady=3)
-        self.comment_entry.grid(row=1, column=2, rowspan=2, sticky=W+E+S+N, padx=8, pady=3)
-        addOrder_btn.grid(row=1, column=3, padx=8, sticky=N+S+W+E)
+        self.entries['name'].set_completion_list(self.dishes_names)
+
+        self.entries['name'].grid(row=0, column=1, columnspan=5, sticky=W+E, pady=3, padx=(3, 15))
+        self.entries['comment'].grid(row=1, column=1, columnspan=5, sticky=W+E, pady=3, padx=(3, 15))
+        self.entries['amount'].grid(row=2, column=1, sticky=W+E, pady=3, padx=(3, 15))
+        addOrder_btn.grid(row=3, column=1, sticky=N+S+W, pady=3, padx=(3, 0))
+
+        addOrder_btn['command'] = lambda: self.addDish()
 
         # Orders Table frame widgets.
         self.orders_view = Treeview(self.frames[3])
         self.orders_view['columns'] = ('Weight', 'Amount', 'Comment', 'Price', 'Sum')
+        self.orders_view.bind('<Delete>', lambda e: self.deleteEntry(e, self.orders_view))
 
-        self.orders_view.heading('#0', text='Name')
-        self.orders_view.column('#0', anchor='w', width=220)
-        self.orders_view.heading('Weight', text='Weight')
-        self.orders_view.column('Weight', anchor=CENTER, width=60)
-        self.orders_view.heading('Amount', text='Amount')
-        self.orders_view.column('Amount', anchor=CENTER, width=60)
-        self.orders_view.heading('Comment', text='Comment')
-        self.orders_view.column('Comment', anchor='w', width=180)
-        self.orders_view.heading('Price', text='Price')
-        self.orders_view.column('Price', anchor=CENTER, width=60)
-        self.orders_view.heading('Sum', text='Sum')
-        self.orders_view.column('Sum', anchor=CENTER, width=60)
+        self.orders_view.heading('#0', text='Название')
+        self.orders_view.column('#0', anchor='w', minwidth=307, width=307)
+        self.orders_view.heading('Weight', text='Выход')
+        self.orders_view.column('Weight', anchor=CENTER, minwidth=100, width=100, stretch=NO)
+        self.orders_view.heading('Amount', text='Количество')
+        self.orders_view.column('Amount', anchor=CENTER, minwidth=100, width=100, stretch=NO)
+        self.orders_view.heading('Comment', text='Комментарий')
+        self.orders_view.column('Comment', anchor='w', minwidth=130, width=130)
+        self.orders_view.heading('Price', text='Цена, грн')
+        self.orders_view.column('Price', anchor=CENTER, minwidth=110, width=110, stretch=NO)
+        self.orders_view.heading('Sum', text='Сумма, грн')
+        self.orders_view.column('Sum', anchor=CENTER, minwidth=108, width=108, stretch=NO)
 
         self.orders_view.grid(row=0, column=0, sticky=N+S+E+W, padx=3, pady=3)
+
+        # NOTE: next [for] block is for testing purposes only.
+        for dish in self.dishes:
+            self.orders_view.insert('', 'end',
+                text=dish,
+                values=[
+                    self.dishes[dish]['weight'],
+                    5,  # [amount] column
+                    'Type:' + self.dishes[dish]['type'],  # [comment] column
+                    self.dishes[dish]['price'],
+                    5 * float(self.dishes[dish]['price'])
+                ]
+            )
 
         orders_scrlbar = Scrollbar(self.frames[3], orient=VERTICAL, command=self.orders_view.yview)
         self.orders_view['yscrollcommand'] = orders_scrlbar.set
         orders_scrlbar.grid(row=0, column=1, sticky=N+S)
 
         # Save Report frame widgets.
-        button_command = [self.savePDF, self.saveWeb, self.saveXLS]
-        button_text = ['Save PDF', 'Save Web', 'Save XLS']
-        saveReportFrame_widgets = []
-        for i in range(3):
-            saveReportFrame_widgets.append(
-                Button(self.frames[4], text=button_text[i], width=20, command=button_command[i])
-            )
-            saveReportFrame_widgets[i].pack(side='left', anchor=CENTER, padx=5, pady=3)
-        # Configure button, which adds a new entry to TreeView
-        addOrder_btn['command'] = lambda: self.addDish()
+        saveWeb_btn = Button(self.frames[4], text='Сохранить отчет', width=20)
+        saveWeb_btn['command'] = lambda: self.saveWeb()
+        saveWeb_btn.pack(side='left', anchor=CENTER, padx=5, pady=3)
 
     def configureGrid(self):
         """Configure weights of grids columns and rows"""
@@ -186,9 +192,9 @@ class Program(Frame):
         # Configuration of main content frame.
         self.configureFrame(self.content, [1], [0, 0, 0, 3, 0])
         # Configuration of about frame.
-        self.configureFrame(self.frames[0], [0, 1, 0, 1, 0, 1], [1, 1, 1])
+        self.configureFrame(self.frames[0], [0, 1, 0, 1, 0, 0, 0, 0], [0, 0])
         # Configuration of new order frame.
-        self.configureFrame(self.frames[2], [0, 1, 3, 1], [0, 1, 1])
+        self.configureFrame(self.frames[2], [0, 1, 1, 1, 1, 1], [0, 0, 0, 0])
         # Configuration of orders table frame.
         self.configureFrame(self.frames[3], [1, 0], [1])
 
@@ -204,8 +210,14 @@ class Program(Frame):
 
     def onQuit(self):
         """Before the program exits, ask user, if he really wants it"""
-        if messagebox.askyesno('Quit?', 'Do you really want to quit?'):
+        if messagebox.askyesno('Выход из программы', 'Вы действительно хотите выйти из программы?'):
             self.quit()
+
+    @staticmethod
+    def deleteEntry(e, tree):
+        """Event to handle deletion in TreeView woth [Delete] button"""
+        selected_item = tree.selection()[0]  # get selected item
+        tree.delete(selected_item)
 
     @staticmethod
     def configureFrame(frame, columns_wght, rows_wght):
@@ -216,106 +228,195 @@ class Program(Frame):
         for i, weight in enumerate(rows_wght):
             frame.rowconfigure(i, weight=weight)
 
-    @staticmethod
-    def savePDF():
-        """TODO"""
-        # TODO: getting data from the grid and passing it to the pdf
-        file = filedialog.asksaveasfile(mode='w', defaultextension='.txt')
-        # If user pressed [Cancel]:
+    def saveWeb(self):
+        """Save data from the TreeView to the html report"""
+        # Validation: if there is no items in tree_view
+        if not self.orders_view.get_children():
+            messagebox.showerror(
+                'Ошибка',
+                'Ошибка создания отчета: нет блюд.'
+            )
+            return
+
+        # Open file dialog to choose saving path.
+        file = filedialog.asksaveasfile(
+            mode='w',
+            defaultextension='.html',
+            filetypes=[('Веб страница', '.html'), ('Все файлы', '.*')]
+        )
+        # If user pressed [Cancel] or closed a file dialog.
         if file is None:
             return
-        text2save = 'hello, guys'
-        file.write(text2save)
-        file.close()
-        print('%s was saved.' % text2save)
 
-    @staticmethod
-    def saveWeb():
-        """TODO"""
-        # TODO: getting data from the grid and passing it to the html
-        print('saved into Web!')
-
-    @staticmethod
-    def saveXLS():
-        """TODO"""
-        # TODO: getting data from the grid and passing it to the xls
-        print('saved into XLS!')
+        # Pack files to send to HTML saver module.
+        # Dictionary looks like: { name:{weight,amount,comment,price,total}, name:... }
+        packed_dishes = {
+            'about': {
+                'client': self.entries['client'].get(),
+                'manager': self.entries['manager'].get(),
+                'type': self.entries['type'].get(),
+                'date': self.entries['date'].get(),
+                'time': self.entries['time'].get(),
+                'location': self.entries['location'].get(),
+                'persons': self.entries['persons'].get()
+            },
+            'dishes': {}
+        }
+        for child in self.orders_view.get_children():
+            child_content = self.orders_view.item(child)
+            child_values = child_content['values']
+            child_name = child_content['text']
+            child_type = self.dishes[child_name]['type']
+            # Pack data about a certain dish.
+            packed_child = {
+                child_name: {
+                    'weight': child_values[0],
+                    'amount': child_values[1],
+                    'comment': child_values[2],
+                    'price': child_values[3],
+                    'total': child_values[4],
+                    'type': child_type
+                }
+            }
+            packed_dishes['dishes'].update(packed_child)
+        # Save the HTML report
+        html_writer = DishesHTMLReport(file, data=packed_dishes)
+        html_writer.create_html()
+        messagebox.showinfo(
+            'Успешное сохранение',
+            'Данные были успешно сохранены.'
+        )
 
     def addDish(self):
         """This function adds an entry to the order_view TreeView widget."""
-
-        def insertTable(text, values):
-            self.orders_view.insert('', 'end', text=text, values=values)
-
+        # Get packed_info as a dictionary.
         packed_info = self.packInfo()
-        if packed_info:
-            insertTable(packed_info['dish'], packed_info['values'])
+        # If info packed successfully, add a new entry to orders TreeView.
+        if not packed_info:
+            return
+        # Add a dish to the TreeView.
+        self.orders_view.insert(
+            '', 'end',
+            text=packed_info['dish'],
+            values=packed_info['values']
+        )
+        # Clear all entries.
+        entries_toclear = ['name', 'comment', 'amount']
+        for entry_key in entries_toclear:
+            self.entries[entry_key].delete(0, END)
+            self.entries[entry_key].insert(0, '')
+        # Set focus to ['name'] entry
+        self.entries['name'].focus_set()
 
     def packInfo(self):
         """Pack values, that were inserted into Entries and Text, into dictionary"""
-        # TODO: when .json will be ready, change configuration here.
         msg = self.validateForm()
+        # Next line for testing purposes only
+        # msg = 'OK'
         if msg == 'OK':
             name = self.entries['name'].get()
+            amount = self.entries['amount'].get()
+            total_price = float(amount) * float(self.dishes[name]['price'])
             pack = {
                 'dish': name,
                 'values': [
-                    'none',  # self.dishes[name]['weight']
-                    self.entries['amount'].get(),
-                    self.comment_entry.get('1.0', END),
-                    'none',  # self.dishes[name]['price']
-                    'none'  # str(self.dishes[name]['amount'] * self.dishes[name]['price'])
+                    self.dishes[name]['weight'],
+                    str(amount),
+                    self.entries['comment'].get(),
+                    self.dishes[name]['price'],
+                    '%.2f' % total_price
                 ]
             }
             return pack
+        elif msg == 'NEWDISH_CANCELED':
+            return False
         else:
             messagebox.showerror(
-                'Input error',
-                'You have some errors: \n%s' % msg
-                )
+                'Ошибка ввода',
+                'При вводе случились ошибки: \n%s' % msg
+            )
             return False
 
     def validateForm(self):
         """Validate all Entry and Text Widgets"""
         msg = ''
         index = 1
-
-        # Certain check for Text widget.
-        if self.comment_entry.get('1.0', END).rstrip() == '':
-            msg += '%i) Comment entry is empty.\n' % index
-            index += 1
+        translations = {
+            'client': 'Клиент',
+            'manager': 'Менеджер',
+            'type': 'Вид мероприятия',
+            'date': 'Дата',
+            'time': 'Время',
+            'location': 'Место проведения',
+            'persons': 'Количество персон',
+            'name': 'Название',
+            'comment': 'Комментарий',
+            'amount': 'Количество',
+        }
 
         for k in self.entries:
             # Check if some entry is empty.
             if self.entries[k].get() == '':
-                msg += '%i) %s is empty.\n' % (index, k)
-                index += 1
-            # Check date entry.
-            if k == 'date':
-                match = re.search(r'(\d{2})[.](\d{2})[.](\d{4})$', self.entries[k].get())
-                if not match:
-                    msg += '%i) Incorrect date format.\nCorrect format: [dd.mm.yyyy]\n' % index
-                    index += 1
-            # Check date entry.
-            if k == 'time':
-                match = re.search(r'(\d{2})[:](\d{2})[-](\d{2})[:](\d{2})', self.entries[k].get())
-                if not match:
-                    msg += '%i) Incorrect time format.\nCorrect format: [00:00-00:00]\n' % index
-                    index += 1
-            # Check if some entries should contain only letters.
-            def onlyLetters(str):
-                return all(letter.isalpha() for letter in str)
-            if k in ['client', 'manager']:
-                if not onlyLetters(self.entries[k].get()):
-                    msg += '%i) %s should contain only letters.\n' % (index, k)
-                    index += 1
+            	if translations[k] != 'Комментарий':
+	                msg += '%i) Поле [%s] пустое.\n' % (index, translations[k])
+	                index += 1
+           
             # Check if some entries should contain only digits.
-            def onlyDigits(str):
-                return all(letter.isdigit() for letter in str)
-            if k in ['location', 'personsamount']:
-                if not onlyDigits(self.entries[k].get()):
-                    msg += '%i) %s should contain only digits.\n' % (index, k)
+            if k in ['location', 'persons']:
+                check = all(letter.isdigit() for letter in self.entries[k].get())
+                if not check:
+                    msg += '%i) Поле [%s] должно содержать только цифры.\n' % (index, translations[k])
                     index += 1
+
+        # Check date entry.
+        match = re.search(r'(\d{2})[.](\d{2})[.](\d{4})$', self.entries['date'].get())
+        if not match:
+            msg += '%i) Неправильный формат даты.\nПравильный формат: дд.мм.гггг\n' % index
+            index += 1
+        # Check time entry.
+        match = re.search(r'(\d{2})[:](\d{2})[-](\d{2})[:](\d{2})$', self.entries['time'].get())
+        if not match:
+            msg += '%i) Неправильный формат времени.\nПравильный формат: 00:00-00:00\n' % index
+            index += 1
+        # Check amount entry.
+        check = all(letter.isdigit() or letter == '.' for letter in self.entries['amount'].get())
+        if not check:
+            msg += '%i) Поле [Количество] должно содержать только цифры, или точки.\n' % index
+            index += 1
+
+        # Ask about [name] entry only if there are no more errors left.
+        if msg != '':
+            return msg
+
+        # Check name entry.
+        if (self.entries['name'].get() not in self.dishes_names and self.entries['name'].get() != ''):
+            if messagebox.askyesno('Добавление нового блюда', 'Блюда %s нет в списке. Добавить?' % self.entries['name'].get()):
+                # Create a new window, which will contain a [result] dictionary {name,type,weight,price}
+                newdish_dialog = NewDishDialog(self, self.entries['name'].get(), 'Добавить новое блюдо')
+                if newdish_dialog.result:
+                    dishToJSON = {
+                        newdish_dialog.result['name']: {
+                            'weight': newdish_dialog.result['weight'],
+                            'price': newdish_dialog.result['price'],
+                            'type': newdish_dialog.result['type']
+                        }
+                    }
+                    self.jsonReader.writeDish(dishToJSON)
+                    self.jsonReader.prepInformation()
+                    self.dishes = self.jsonReader.getDishesDict()
+                    self.dishes_names = self.jsonReader.getDishesNames()
+                    self.entries['name'].set_completion_list(self.dishes_names)
+                else:
+                    # if [exit] was pressed
+                    return 'NEWDISH_CANCELED'
+            else:
+                return 'NEWDISH_CANCELED'
+        # Check if the same dish is in the orderslist.
+        for child in self.orders_view.get_children():
+            child_content = self.orders_view.item(child)
+            if self.entries['name'].get() == child_content['text']:
+                msg += '%i) Ошибка в поле [Название] - такое блюдо уже есть в списке.' % index
+                index += 1
 
         # If all tests passed correctly, msg is 'OK'
         if msg == '':
