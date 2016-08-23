@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Restaurant manager report</title>
+  </head>
+  <body>
+    <table style="width:100%">
+      <tr>
+        <td class="about">Замовник:</td>
+        <td class="logo" rowspan="7" colspan="5">
+          <img alt="Vine e Cucina restaurant" src="images/logo_2.jpg" width="210" height="86" />
+        </td>
+      </tr>
+      <tr>
+        <td class="about">Менеджер:</td>
+      </tr>
+      <tr>
+        <td class="about">Місце проведення:</td>
+      </tr>
+      <tr>
+        <td class="about">Дата:</td>
+      </tr>
+      <tr>
+        <td class="about">Вид заходу:</td>
+      </tr>
+      <tr>
+        <td class="about">Час:</td>
+      </tr>
+      <tr>
+        <td class="about">Кількість персон:</td>
+      </tr>
+      <tr>
+        <td class="top-header" colspan="6">Ми щиро вдячні Вам, що обрали саме нас!</td>
+      </tr>
+      <tr>
+        <td class="top-header" colspan="6">Керуючись Вашими пріорітетами та вподобаннями, ми підготували данну пропозицію.</td>
+      </tr>
+      <tr class="header">
+        <th width="40%">Назва</th>
+        <th width="5%">Вихід</th>
+        <th width="5%">Кількість</th>
+        <th width="34%">Коментар</th>
+        <th width="8%">Ціна, грн</th>
+        <th width="8%">Сума, грн</th>
+      </tr>
+      <tr class="header_line">
+        <th>Каші</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Каша із трьох видів злаків з овочевим тартаром та гарбузовим маслом</td>
+        <td>160</td>
+        <td>5</td>
+        <td>Type:Каші</td>
+        <td>95.00</td>
+        <td>475.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Каша манна зі свіжими ягодами</td>
+        <td>250</td>
+        <td>5</td>
+        <td>Type:Каші</td>
+        <td>59.00</td>
+        <td>295.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Малиновий різотто з рікоттою</td>
+        <td>250</td>
+        <td>5</td>
+        <td>Type:Каші</td>
+        <td>137.00</td>
+        <td>685.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Каша вівсяна зі свіжими ягодами</td>
+        <td>250</td>
+        <td>5</td>
+        <td>Type:Каші</td>
+        <td>59.00</td>
+        <td>295.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Ранкова домашня випічка</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Паніні зі страчателлою, руколою та прошуто крудо</td>
+        <td>200</td>
+        <td>5</td>
+        <td>Type:Ранкова домашня випічка</td>
+        <td>118.00</td>
+        <td>590.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Італійський сніданок</td>
+        <td>210</td>
+        <td>5</td>
+        <td>Type:Ранкова домашня випічка</td>
+        <td>150.00</td>
+        <td>750.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Корнетті з шоколадом, вершковим маслом і домашнім яблучним варенням</td>
+        <td>70/90</td>
+        <td>5</td>
+        <td>Type:Ранкова домашня випічка</td>
+        <td>62.00</td>
+        <td>310.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>До сніданку</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Сметана</td>
+        <td>30</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>15.00</td>
+        <td>75.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Домашнє варення з яблук</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>23.00</td>
+        <td>115.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Масло вершкове</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>23.00</td>
+        <td>115.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Бекон смажений</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>97.00</td>
+        <td>485.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжий чорний трюфель</td>
+        <td>1</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>75.00</td>
+        <td>375.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Тартар зі свіжих овочів</td>
+        <td>60</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>39.00</td>
+        <td>195.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжі томати чері</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>75.00</td>
+        <td>375.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Мед</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>29.00</td>
+        <td>145.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Прошуто крудо</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>89.00</td>
+        <td>445.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Гранола власного приготування</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>59.00</td>
+        <td>295.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Соус полуничний</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>23.00</td>
+        <td>115.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Мортаделла</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:До сніданку</td>
+        <td>79.00</td>
+        <td>395.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Смузі</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Vino e Cucina</td>
+        <td>200</td>
+        <td>5</td>
+        <td>Type:Смузі</td>
+        <td>85.00</td>
+        <td>425.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Ранковий</td>
+        <td>375</td>
+        <td>5</td>
+        <td>Type:Смузі</td>
+        <td>85.00</td>
+        <td>425.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Ягідний</td>
+        <td>375</td>
+        <td>5</td>
+        <td>Type:Смузі</td>
+        <td>85.00</td>
+        <td>425.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Брускети</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Брускета-бар</td>
+        <td>340</td>
+        <td>5</td>
+        <td>Type:Брускети</td>
+        <td>199.00</td>
+        <td>995.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Брускета з двома видами томатів і базиліком</td>
+        <td>150</td>
+        <td>5</td>
+        <td>Type:Брускети</td>
+        <td>79.00</td>
+        <td>395.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Брускета з лососем і сиром Філадельфія</td>
+        <td>110</td>
+        <td>5</td>
+        <td>Type:Брускети</td>
+        <td>127.00</td>
+        <td>635.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Брускета з цукіні і козячим сиром з травами</td>
+        <td>130</td>
+        <td>5</td>
+        <td>Type:Брускети</td>
+        <td>89.00</td>
+        <td>445.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Закуски</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Тартар з тунця, лосося та авокадо</td>
+        <td>150</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>312.00</td>
+        <td>1560.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Карпачо з лосося</td>
+        <td>100/30/30</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>196.00</td>
+        <td>980.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Карпачо з восьминога з картоплею та каперсами</td>
+        <td>80/110</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>295.00</td>
+        <td>1475.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Парма з динею канталупа</td>
+        <td>150/40</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>159.00</td>
+        <td>795.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Пюре з артишоку з грінками</td>
+        <td>140</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>154.00</td>
+        <td>770.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжі артишоки з соусом із каперсів</td>
+        <td>180</td>
+        <td>5</td>
+        <td>Type:Закуски</td>
+        <td>183.00</td>
+        <td>915.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Страви з органічних яєць</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Скрембл щ беконом та свіжими томатами</td>
+        <td>230</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>115.00</td>
+        <td>575.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Брускета з копченим лососем, свіжим шпинатом і яйцем пашот</td>
+        <td>170</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>149.00</td>
+        <td>745.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Фрітата з козиним сиром</td>
+        <td>180</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>85.00</td>
+        <td>425.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Яєчня зі свіжим чорним трюфелем</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>155.00</td>
+        <td>775.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Яєчня в гострому томатному соусі</td>
+        <td>230</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>99.00</td>
+        <td>495.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжий шпинат з яйцем пашот</td>
+        <td>200</td>
+        <td>5</td>
+        <td>Type:Страви з органічних яєць</td>
+        <td>112.00</td>
+        <td>560.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Страви з сиру та йогурту власного приготування</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Ньоки сирні з вершковим соусом</td>
+        <td>200/50</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>70.00</td>
+        <td>350.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Йогурт з гранолою власного приготування</td>
+        <td>123</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>123.0</td>
+        <td>615.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Густий смузі з ягодами та домашньою гранолою</td>
+        <td>220</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>99.00</td>
+        <td>495.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Сирники з домашнім варенням та сметаною</td>
+        <td>200/50</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>92.00</td>
+        <td>460.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Сир з трюфельним медом та ягодами</td>
+        <td>160</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>93.00</td>
+        <td>465.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Оладки зі сметаною та кленовим сиропом</td>
+        <td>180/30</td>
+        <td>5</td>
+        <td>Type:Страви з сиру та йогурту власного приготування</td>
+        <td>87.00</td>
+        <td>435.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Фрукти</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжі фрукти Мачедонія</td>
+        <td>180</td>
+        <td>5</td>
+        <td>Type:Фрукти</td>
+        <td>112.00</td>
+        <td>560.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Пропонуємо додати</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Домашній соус Песто</td>
+        <td>30</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>69.00</td>
+        <td>345.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">М'ясне асорті</td>
+        <td>60</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>87.00</td>
+        <td>435.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Свіжі томати з руколою</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>89.00</td>
+        <td>445.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Бреазола - італійська в'ялена яловича шинка</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>129.00</td>
+        <td>645.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Прошуто Сан Даніелє</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>146.00</td>
+        <td>730.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Артишоки смажені на грилі, мариновані в олії</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>143.00</td>
+        <td>715.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Салямі з труфелем</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>129.00</td>
+        <td>645.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Салямі з оленини</td>
+        <td>50</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>119.00</td>
+        <td>595.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Овочі по-сицилійськи</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Пропонуємо додати</td>
+        <td>79.00</td>
+        <td>395.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Салати</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Салат з руколою чері і пармезаном</td>
+        <td>130</td>
+        <td>5</td>
+        <td>Type:Салати</td>
+        <td>125.00</td>
+        <td>625.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Салат з овочів і телятини на грилі</td>
+        <td>180</td>
+        <td>5</td>
+        <td>Type:Салати</td>
+        <td>176.00</td>
+        <td>880.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Панцанелла з томатами, анчоусами та домашнім хлібом</td>
+        <td>280</td>
+        <td>5</td>
+        <td>Type:Салати</td>
+        <td>154.00</td>
+        <td>770.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Салат з морепродуктами</td>
+        <td>230</td>
+        <td>5</td>
+        <td>Type:Салати</td>
+        <td>217.00</td>
+        <td>1085.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Моцарелла Бар</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Моцарелла ді Буфала</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>149.00</td>
+        <td>745.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Моцарелла Страчателла</td>
+        <td>100</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>149.00</td>
+        <td>745.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Моцарелла Бурата</td>
+        <td>125</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>149.00</td>
+        <td>745.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Моцарелла з коров'ячого молока</td>
+        <td>125</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>98.00</td>
+        <td>490.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Дегустація на чотирьох</td>
+        <td>300/125</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>435.00</td>
+        <td>2175.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Моцарелла Афуміката</td>
+        <td>125</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>169.00</td>
+        <td>845.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Дегустація на двох</td>
+        <td>300/125</td>
+        <td>5</td>
+        <td>Type:Моцарелла Бар</td>
+        <td>355.00</td>
+        <td>1775.0</td>
+      </tr>
+      <tr class="header_line">
+        <th>Устриці</th>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Фін де Клєр №2</td>
+        <td>1 шт</td>
+        <td>5</td>
+        <td>Type:Устриці</td>
+        <td>96.00</td>
+        <td>480.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Жилардо</td>
+        <td>1 шт</td>
+        <td>5</td>
+        <td>Type:Устриці</td>
+        <td>155.00</td>
+        <td>775.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Ла Луна</td>
+        <td>1 шт</td>
+        <td>5</td>
+        <td>Type:Устриці</td>
+        <td>154.00</td>
+        <td>770.0</td>
+      </tr>
+      <tr class="order_line">
+        <td class="name">Рожева устриця Тарбур'єш</td>
+        <td>1 шт</td>
+        <td>5</td>
+        <td>Type:Устриці</td>
+        <td>173.00</td>
+        <td>865.0</td>
+      </tr>
+      <tr>
+        <td class="total">Загальна сума без обслуговування:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total">42445.0</td>
+      </tr>
+      <tr>
+        <td class="total">Обслуговування 10%:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total">4244.5</td>
+      </tr>
+      <tr>
+        <td class="total">Загальна сума:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total">46689.5</td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 # TOASK: make [new dish] Dialog bigger?
-# TODO: new, appropriate logo
+# TOASK: new, appropriate logo
+
 # TODO: add requirments.txt
 # TODO: do TODOs at newdishtml.py
 # TODO: today's date as default value in self.entries['date']
@@ -13,7 +14,7 @@ import sys
 import tkinter
 from readjson import JsonReader
 from newdishdialog import NewDishDialog
-from newhtml import HtmlCreator
+from newdishhtml import DishesHTMLReport
 from tkinter.ttk import Frame, Label, Button, Entry, Scrollbar, Treeview, Style
 from tkinter import N, S, W, E, X, NO, RIGHT, CENTER, VERTICAL, END, messagebox, filedialog, PhotoImage
 from autoentry import AutocompleteEntry
@@ -280,7 +281,7 @@ class Program(Frame):
             }
             packed_dishes['dishes'].update(packed_child)
         # Save the HTML report
-        html_writer = HTMLCreator(file, data=packed_dishes)
+        html_writer = DishesHTMLReport(file, data=packed_dishes)
         html_writer.create_html()
         messagebox.showinfo(
             'Успешное сохранение',
@@ -357,17 +358,15 @@ class Program(Frame):
         for k in self.entries:
             # Check if some entry is empty.
             if self.entries[k].get() == '':
-            	if translations[k] != 'Комментарий':
-	                msg += '%i) Поле [%s] пустое.\n' % (index, translations[k])
-	                index += 1
-           
-            # Check if some entries should contain only digits.
-            if k in ['location', 'persons']:
-                check = all(letter.isdigit() for letter in self.entries[k].get())
-                if not check:
-                    msg += '%i) Поле [%s] должно содержать только цифры.\n' % (index, translations[k])
-                    index += 1
+                if k == 'comment':
+                    continue
+                msg += '%i) Поле [%s] пустое.\n' % (index, translations[k])
+                index += 1
 
+        # Persons entry should contain only digits.
+        if not all(letter.isdigit() for letter in self.entries['persons'].get()):
+            msg += '%i) Поле [Количество персон] должно содержать только цифры.\n' % index
+            index += 1
         # Check date entry.
         match = re.search(r'(\d{2})[.](\d{2})[.](\d{4})$', self.entries['date'].get())
         if not match:
