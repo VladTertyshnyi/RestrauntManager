@@ -13,7 +13,7 @@ import sys
 import tkinter
 from readjson import JsonReader
 from newdishdialog import NewDishDialog
-from newdishhtml import HTMLReport
+from newhtml import HtmlCreator
 from tkinter.ttk import Frame, Label, Button, Entry, Scrollbar, Treeview, Style
 from tkinter import N, S, W, E, X, NO, RIGHT, CENTER, VERTICAL, END, messagebox, filedialog, PhotoImage
 from autoentry import AutocompleteEntry
@@ -280,7 +280,7 @@ class Program(Frame):
             }
             packed_dishes['dishes'].update(packed_child)
         # Save the HTML report
-        html_writer = DishesHTMLReport(file, data=packed_dishes)
+        html_writer = HTMLCreator(file, data=packed_dishes)
         html_writer.create_html()
         messagebox.showinfo(
             'Успешное сохранение',

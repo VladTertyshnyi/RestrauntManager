@@ -46,7 +46,7 @@ class HtmlCreator:
         This method should be overridden.
         """
         with self.tag('head'):
-            self.doc.asis('<meta charset="UTF-8>')
+            self.doc.asis('<meta charset="UTF-8"/>') 
             with self.tag('title'):
                 self.text('Restaurant manager report')
 
@@ -55,6 +55,7 @@ class HtmlCreator:
         Create a body for your html file here.
         This method should be overridden.
         """
+        data = self.data
         tag, text = self.tag, self.text
         with tag('body'):
             with tag('table', style = 'width:100%'):
