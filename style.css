@@ -1,0 +1,50 @@
+td, th, table
+		{
+    		border: 1px solid ;
+    		border-collapse: collapse;
+    	}
+th, td {
+    		padding: 3px;
+    		text-align: center;
+		}
+
+.about {
+			width: 40%;
+			font-style: italic;
+			text-align: left;
+			font-weight: bold;
+			border: 0px solid ;
+		}
+.top-header {
+		font-style: italic;
+		font-weight: 800;
+		border: 0px solid ;
+	}
+th, td {
+    		padding: 5px;
+    		text-align: center;
+		}
+.name{
+	text-align: left;
+}
+.logo{
+	border: 0px solid ;
+}
+.header_line{
+	background-color: orange;
+	width: 100%;
+}
+
+.header{
+	background-color: orange;
+	width: 100%;
+}
+
+@media print {
+body {-webkit-print-color-adjust: exact;}
+}
+
+.total {
+	font-weight: bold;
+	background-color: orange;
+}
